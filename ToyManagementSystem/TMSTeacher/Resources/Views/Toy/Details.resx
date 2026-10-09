@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  
+  <!-- Page Title -->
+  <data name="Title" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  
+  <!-- Labels -->
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="AdditionalInformation" xml:space="preserve">
+    <value>Additional Information</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="Material" xml:space="preserve">
+    <value>Material</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Location</value>
+  </data>
+  <data name="Availability" xml:space="preserve">
+    <value>Availability</value>
+  </data>
+  <data name="NoImageAvailable" xml:space="preserve">
+    <value>No Image Available</value>
+  </data>
+  <data name="ToyImage" xml:space="preserve">
+    <value>Toy Image</value>
+  </data>
+  
+  <!-- Status Values -->
+  <data name="Available" xml:space="preserve">
+    <value>Available</value>
+  </data>
+  <data name="Borrowed" xml:space="preserve">
+    <value>Borrowed</value>
+  </data>
+  
+  <!-- Actions -->
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="BackToList" xml:space="preserve">
+    <value>Back to List</value>
+  </data>
+</root>

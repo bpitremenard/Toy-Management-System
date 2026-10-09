@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  
+  <!-- Page Title -->
+  <data name="Title" xml:space="preserve">
+    <value>Modifier le Jouet</value>
+  </data>
+  
+  <!-- Form Header -->
+  <data name="EditToy" xml:space="preserve">
+    <value>Modifier le Jouet</value>
+  </data>
+  
+  <!-- Form Labels -->
+  <data name="ToyName" xml:space="preserve">
+    <value>Nom du Jouet</value>
+  </data>
+  <data name="ToyLocation" xml:space="preserve">
+    <value>Emplacement du Jouet</value>
+  </data>
+  <data name="Material" xml:space="preserve">
+    <value>Matériau</value>
+  </data>
+  <data name="DevelopmentGoal" xml:space="preserve">
+    <value>Objectif de Développement</value>
+  </data>
+  <data name="CurrentImage" xml:space="preserve">
+    <value>Image Actuelle</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  
+  <!-- Select Options -->
+  <data name="SelectMaterial" xml:space="preserve">
+    <value>-- Sélectionner le Matériau --</value>
+  </data>
+  <data name="SelectDevelopmentGoal" xml:space="preserve">
+    <value>-- Sélectionner l'Objectif de Développement --</value>
+  </data>
+  
+  <!-- Material Options -->
+  <data name="Wood" xml:space="preserve">
+    <value>Bois</value>
+  </data>
+  <data name="Plastic" xml:space="preserve">
+    <value>Plastique</value>
+  </data>
+  <data name="Plush" xml:space="preserve">
+    <value>Peluche</value>
+  </data>
+  <data name="Metal" xml:space="preserve">
+    <value>Métal</value>
+  </data>
+  <data name="Rubber" xml:space="preserve">
+    <value>Caoutchouc</value>
+  </data>
+  
+  <!-- Category Options -->
+  <data name="Cognitive" xml:space="preserve">
+    <value>Cognitif</value>
+  </data>
+  <data name="SocialEmotional" xml:space="preserve">
+    <value>Social et Émotionnel (Jeu Dramatique)</value>
+  </data>
+  <data name="Sensory" xml:space="preserve">
+    <value>Sensoriel</value>
+  </data>
+  <data name="Physical" xml:space="preserve">
+    <value>Physique</value>
+  </data>
+  
+  <!-- Buttons -->
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Enregistrer les Modifications</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  
+  <!-- Additional Information -->
+  <data name="AdditionalInformation" xml:space="preserve">
+    <value>Informations Supplémentaires</value>
+  </data>
+</root>

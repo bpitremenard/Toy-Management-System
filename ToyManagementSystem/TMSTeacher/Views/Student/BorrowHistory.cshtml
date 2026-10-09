@@ -1,0 +1,96 @@
+@model IEnumerable<TMS_SharedLibrary.Models.ToyLoan>
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = Localizer["Title"];
+    var studentName = ViewBag.StudentName as string;
+}
+
+<div class="tms-layout">
+    <main class="tms-main">
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+        }
+
+        <h2 class="tms-title tms-fade-in">
+            @Localizer["BorrowHistoryFor", studentName]
+        </h2>
+
+        <div class="download-btn-left">
+            <form asp-action="Download" method="post">
+                <input type="hidden" name="studentId" value="@ViewBag.StudentId" />
+                <input type="hidden" name="languageOption" value="true" />
+                <button type="submit" class="tms-btn" style="margin-bottom:20px">
+                    <span class="tms-btn-text">@Localizer["ExportPDFToEnglish"]</span>
+                </button>
+            </form>
+
+            <form asp-action="Download" method="post">
+                <input type="hidden" name="studentId" value="@ViewBag.StudentId" />
+                <input type="hidden" name="languageOption" value="false" />
+                <button type="submit" class="tms-btn" style="margin-bottom:20px">
+                    <span class="tms-btn-text">@Localizer["ExportPDFToFrench"]</span>
+                </button>
+            </form>
+        </div>
+
+        <div class="tms-history-container tms-fade-in">
+            @if (Model.Any())
+            {
+                <div class="tms-history-header">
+                    <div class="tms-history-header-cell">@Localizer["ToyName"]</div>
+                    <div class="tms-history-header-cell">@Localizer["BorrowedDate"]</div>
+                    <div class="tms-history-header-cell">@Localizer["DueDate"]</div>
+                    <div class="tms-history-header-cell">@Localizer["ReturnedDate"]</div>
+                    <div class="tms-history-header-cell">@Localizer["Status"]</div>
+                </div>
+
+                @foreach (var item in Model)
+                {
+                    var statusKey = item.ReturnDate == null
+                    ? (item.DueDate < DateOnly.FromDateTime(DateTime.Today) ? "Overdue" : "Active")
+                    : "Returned";
+
+                    var statusClass = item.ReturnDate == null
+                    ? (item.DueDate < DateOnly.FromDateTime(DateTime.Today) ? "overdue" : "active")
+                    : "returned";
+
+                    <div class="tms-history-row">
+                        <div class="tms-history-cell">@item.Toy.Name</div>
+                        <div class="tms-history-cell">@item.BorrowDate.ToString("yyyy-MM-dd")</div>
+                        <div class="tms-history-cell">@item.DueDate.ToString("yyyy-MM-dd")</div>
+
+                        <div class="tms-history-cell">
+                            @if (item.ReturnDate == null)
+                            {
+                                @:-
+                            } else if (item.ReturnDate > item.DueDate)
+                            {
+                                <span style="color:red;">@item.ReturnDate?.ToString("yyyy-MM-dd")</span>
+                            } else
+                            {
+                                @item.ReturnDate?.ToString("yyyy-MM-dd")
+                            }
+                        </div>
+
+                        <div class="tms-history-cell">
+                            <span class="tms-status tms-status-@statusClass">
+                                @Localizer[statusKey]
+                            </span>
+                        </div>
+                    </div>
+                }
+            } else
+            {
+                <div class="tms-no-data">@Localizer["NoBorrowHistoryFound"]</div>
+            }
+        </div>
+
+        <div class="tms-actions tms-mt-4">
+            <a asp-action="Index" class="tms-btn">
+                <span class="tms-btn-text">@Localizer["BackToStudents"]</span>
+            </a>
+        </div>
+    </main>
+</div>

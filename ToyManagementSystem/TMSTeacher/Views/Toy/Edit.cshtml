@@ -1,0 +1,129 @@
+﻿@model TMS_SharedLibrary.Models.Toy
+
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = Localizer["Title"];
+    var fileName = System.IO.Path.GetFileName(Model.ImagePath ?? "");
+    var imgUrl = string.IsNullOrWhiteSpace(fileName) ? "" : Url.Content("~/toy-images/" + fileName);
+}
+
+<div class="container mt-4">
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-primary text-white">
+            <h3 class="mb-0">@Localizer["EditToy"]</h3>
+        </div>
+
+        <div class="card-body">
+            <form asp-action="Edit" enctype="multipart/form-data">
+                <input type="hidden" asp-for="ToyId" />
+                <input type="hidden" asp-for="IsAvailable" />
+                <input type="hidden" asp-for="ImagePath" />
+
+                <div class="row g-4">
+                    <div class="col-md-7">
+
+                        <div class="mb-3">
+                            <label asp-for="Name" class="form-label">@Localizer["ToyName"] <span style="color: red;">*</span></label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="LocationCode" class="form-label">@Localizer["ToyLocation"] <span style="color: red;">*</span></label>
+                            <input asp-for="LocationCode" class="form-control" />
+                            <span asp-validation-for="LocationCode" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Material" class="form-label">@Localizer["Material"]</label>
+                            <select asp-for="Material" class="form-select">
+                                <option value="">@Localizer["SelectMaterial"]</option>
+                                <option>@Localizer["Wood"]</option>
+                                <option>@Localizer["Plastic"]</option>
+                                <option>@Localizer["Plush"]</option>
+                                <option>@Localizer["Metal"]</option>
+                                <option>@Localizer["Rubber"]</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Category" class="form-label">@Localizer["DevelopmentGoal"]</label>
+                            <select asp-for="Category" class="form-select">
+                                <option value="">@Localizer["SelectDevelopmentGoal"]</option>
+                                <option>@Localizer["Cognitive"]</option>
+                                <option>@Localizer["SocialEmotional"]</option>
+                                <option>@Localizer["Sensory"]</option>
+                                <option>@Localizer["Physical"]</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-5 text-center">
+                        <label class="form-label">@Localizer["CurrentImage"]</label>
+
+                        <img id="imagePreview"
+                             class="img-fluid rounded border mb-3"
+                             style="max-height: 220px; object-fit: contain; display:none;" />
+
+                        <input type="file" name="imageFile" id="imageInput"
+                               class="form-control" accept="image/*" />
+
+                        <span asp-validation-for="ImagePath" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-12">
+                        <label asp-for="Description" class="form-label">@Localizer["Description"]</label>
+                        <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-12">
+                        <label asp-for="AdditionalInformation" class="form-label">@Localizer["AdditionalInformation"]</label>
+                        <textarea asp-for="AdditionalInformation" class="form-control" rows="3"></textarea>
+                        <span asp-validation-for="AdditionalInformation" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-12">
+                     <button type="submit" class="btn btn-primary px-4">@Localizer["SaveChanges"]</button>
+                   <a asp-action="Index" class="btn btn-outline-secondary px-4">@Localizer["Cancel"]</a>
+                    </div>
+                </div>
+
+                <div asp-validation-summary="ModelOnly" class="text-danger mt-2"></div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const input = document.getElementById('imageInput');
+            const preview = document.getElementById('imagePreview');
+            const existingUrl = '@imgUrl';
+
+            if (existingUrl && existingUrl.length > 0) {
+                preview.src = existingUrl;
+                preview.style.display = 'block';
+            }
+
+            input.addEventListener('change', function (e) {
+                const file = e.target.files[0];
+                if (!file) return;
+
+                const reader = new FileReader();
+                reader.onload = ev => {
+                    preview.src = ev.target.result;
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            });
+        });
+    </script>
+}

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  
+  <!-- Page Title -->
+  <data name="Title" xml:space="preserve">
+    <value>Available Toys</value>
+  </data>
+  
+  <!-- Header -->
+  <data name="Header" xml:space="preserve">
+    <value>Toy Management System</value>
+  </data>
+  
+  <!-- Filter Button -->
+  <data name="SearchPlaceholder" xml:space="preserve">
+    <value>Search toys</value>
+  </data>
+  <data name="SearchButton" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="ClearButton" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  
+  <!-- Alert Messages -->
+  <data name="Success" xml:space="preserve">
+    <value>Success!</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error!</value>
+  </data>
+  <data name="NoToysFound" xml:space="preserve">
+    <value>No toys found matching the selected filters.</value>
+  </data>
+  
+  <!-- Toy Card Labels -->
+  <data name="NoImage" xml:space="preserve">
+    <value>No Image</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Category:</value>
+  </data>
+  <data name="Material" xml:space="preserve">
+    <value>Material:</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Location:</value>
+  </data>
+  <data name="DueDate" xml:space="preserve">
+    <value>Due Date:</value>
+  </data>
+  <data name="DueToday" xml:space="preserve">
+    <value>Due Today</value>
+  </data>
+  <data name="DueInDays" xml:space="preserve">
+    <value>Due in {0} days</value>
+  </data>
+  <data name="OverdueByDays" xml:space="preserve">
+    <value>Overdue by {0} days</value>
+  </data>
+  
+  <!-- Action Buttons -->
+  <data name="Return" xml:space="preserve">
+    <value>Return</value>
+  </data>
+  <data name="Reserved" xml:space="preserve">
+    <value>Reserved</value>
+  </data>
+  <data name="Reserve" xml:space="preserve">
+    <value>Reserve</value>
+  </data>
+  
+  <!-- Filter Modal -->
+  <data name="FilterToys" xml:space="preserve">
+    <value>Filter Toys</value>
+  </data>
+  <data name="DevelopmentGoal" xml:space="preserve">
+    <value>Development Goal</value>
+  </data>
+  <data name="AllCategories" xml:space="preserve">
+    <value>All Categories</value>
+  </data>
+  <data name="AllMaterials" xml:space="preserve">
+    <value>All Materials</value>
+  </data>
+  <data name="ApplyFilters" xml:space="preserve">
+    <value>Apply Filters</value>
+  </data>
+  <data name="ClearFilters" xml:space="preserve">
+    <value>Clear Filters</value>
+  </data>
+  
+  <!-- Category Options -->
+  <data name="CategoryCognitive" xml:space="preserve">
+    <value>Cognitive</value>
+  </data>
+  <data name="CategorySocialEmotional" xml:space="preserve">
+    <value>Social and Emotional</value>
+  </data>
+  <data name="CategorySensory" xml:space="preserve">
+    <value>Sensory</value>
+  </data>
+  <data name="CategoryPhysical" xml:space="preserve">
+    <value>Physical</value>
+  </data>
+  
+  <!-- Material Options -->
+  <data name="MaterialWood" xml:space="preserve">
+    <value>Wood</value>
+  </data>
+  <data name="MaterialPlastic" xml:space="preserve">
+    <value>Plastic</value>
+  </data>
+  <data name="MaterialPlush" xml:space="preserve">
+    <value>Plush</value>
+  </data>
+  <data name="MaterialMetal" xml:space="preserve">
+    <value>Metal</value>
+  </data>
+  <data name="MaterialRubber" xml:space="preserve">
+    <value>Rubber</value>
+  </data>
+</root>

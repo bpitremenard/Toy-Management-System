@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  
+  <!-- Page Title -->
+  <data name="Title" xml:space="preserve">
+    <value>Jouets Disponibles</value>
+  </data>
+  
+  <!-- Header -->
+  <data name="Header" xml:space="preserve">
+    <value>Système de Gestion des Jouets</value>
+  </data>
+  
+  <!-- Action Buttons -->
+  <data name="SearchPlaceholder" xml:space="preserve">
+    <value>Rechercher des jouets</value>
+  </data>
+  <data name="SearchButton" xml:space="preserve">
+    <value>Rechercher</value>
+  </data>
+  <data name="ClearButton" xml:space="preserve">
+    <value>Effacer</value>
+  </data>
+  <data name="AddToy" xml:space="preserve">
+    <value>Ajouter un Jouet</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Filtrer</value>
+  </data>
+  <data name="Update" xml:space="preserve">
+    <value>Mettre à jour</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Supprimer</value>
+  </data>
+  <data name="Return" xml:space="preserve">
+    <value>Retourner</value>
+  </data>
+  
+  <!-- Messages -->
+  <data name="NoToysFound" xml:space="preserve">
+    <value>Aucun jouet trouvé correspondant aux filtres sélectionnés.</value>
+  </data>
+  
+  <!-- Toy Card Labels -->
+  <data name="NoImage" xml:space="preserve">
+    <value>Aucune Image</value>
+  </data>
+  
+  <!-- Filter Modal -->
+  <data name="Filter" xml:space="preserve">
+    <value>Filtrer</value>
+  </data>
+  <data name="DevelopmentGoal" xml:space="preserve">
+    <value>Objectif de Développement</value>
+  </data>
+  <data name="SelectOne" xml:space="preserve">
+    <value>Sélectionner</value>
+  </data>
+  <data name="ApplyFilters" xml:space="preserve">
+    <value>Appliquer les Filtres</value>
+  </data>
+  <data name="ClearFilters" xml:space="preserve">
+    <value>Effacer les Filtres</value>
+  </data>
+  
+  <!-- Category Options -->
+  <data name="CategoryCognitive" xml:space="preserve">
+    <value>Cognitif</value>
+  </data>
+  <data name="CategorySocialEmotional" xml:space="preserve">
+    <value>Social et Émotionnel (Jeu Dramatique)</value>
+  </data>
+  <data name="CategorySensory" xml:space="preserve">
+    <value>Sensoriel</value>
+  </data>
+  <data name="CategoryPhysical" xml:space="preserve">
+    <value>Physique</value>
+  </data>
+  
+  <!-- Material Options -->
+  <data name="MaterialWood" xml:space="preserve">
+    <value>Bois</value>
+  </data>
+  <data name="MaterialPlastic" xml:space="preserve">
+    <value>Plastique</value>
+  </data>
+  <data name="MaterialPlush" xml:space="preserve">
+    <value>Peluche</value>
+  </data>
+  <data name="MaterialMetal" xml:space="preserve">
+    <value>Métal</value>
+  </data>
+  <data name="MaterialRubber" xml:space="preserve">
+    <value>Caoutchouc</value>
+  </data>
+</root>

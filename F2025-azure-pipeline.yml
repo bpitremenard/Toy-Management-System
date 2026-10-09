@@ -1,0 +1,77 @@
+variables:
+- name: BuildParameters.RestoreBuildProjects
+  value: '**/*.csproj'
+- name: BuildParameters.TestProjects
+  value: '**/*[Tt]ests/*.csproj'
+
+trigger:
+  branches:
+    include:
+    - F25_Develop
+
+name: $(date:yyyyMMdd)$(rev:.r)
+
+jobs:
+- job: Job_1
+  displayName: Agent job 1
+  pool:
+    name: CSDEVWWW
+  steps:
+  - checkout: self
+  - task: DotNetCoreCLI@2
+    displayName: Restore
+    inputs:
+      command: restore
+      projects: $(BuildParameters.RestoreBuildProjects)
+  - task: DotNetCoreCLI@2
+    displayName: Build MVC Teacher
+    inputs:
+      projects: ToyManagementSystem\TMSTeacher\TMSTeacher.csproj
+      arguments: --configuration $(BuildConfiguration)
+  - task: DotNetCoreCLI@2
+    displayName: Build MVC Student
+    inputs:
+      projects: ToyManagementSystem\TMSStudent\TMSStudent.csproj
+      arguments: --configuration $(BuildConfiguration)
+  - task: DotNetCoreCLI@2
+    displayName: Build API
+    inputs:
+      projects: ToyManagementSystem\TMS_API\TMS_API.csproj
+      arguments: --configuration $(BuildConfiguration)
+  - task: DotNetCoreCLI@2
+    displayName: Test
+    inputs:
+      command: test
+      projects: $(BuildParameters.TestProjects)
+      arguments: --configuration $(BuildConfiguration)
+  - task: DotNetCoreCLI@2
+    displayName: Publish MVC Teacher
+    inputs:
+      command: publish
+      publishWebProjects: True
+      projects: ToyManagementSystem\TMSTeacher\TMSTeacher.csproj
+      arguments: --configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)\mvcTeacher
+      zipAfterPublish: True
+  - task: DotNetCoreCLI@2
+    displayName: Publish MVC Student
+    inputs:
+      command: publish
+      publishWebProjects: True
+      projects: ToyManagementSystem\TMSStudent\TMSStudent.csproj
+      arguments: --configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)\mvcStudent
+      zipAfterPublish: True
+  - task: DotNetCoreCLI@2
+    displayName: Publish API
+    inputs:
+      command: publish
+      publishWebProjects: True
+      projects: ToyManagementSystem\TMS_API\TMS_API.csproj
+      arguments: --configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)\api
+      zipAfterPublish: True
+  - task: PublishBuildArtifacts@1
+    displayName: Publish Artifact
+    condition: succeededOrFailed()
+    inputs:
+      PathtoPublish: $(build.artifactstagingdirectory)
+      TargetPath: '\\my\share\$(Build.DefinitionName)\$(Build.BuildNumber)'
+...

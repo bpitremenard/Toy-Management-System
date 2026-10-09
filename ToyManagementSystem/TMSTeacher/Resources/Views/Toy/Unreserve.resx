@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  
+  <!-- Page Title -->
+  <data name="UnreserveToy" xml:space="preserve">
+    <value>Return Toy</value>
+  </data>
+  
+  <!-- Header -->
+  <data name="UnreserveConfirmation" xml:space="preserve">
+    <value>Return Toy Confirmation</value>
+  </data>
+  
+  <!-- Warning Message -->
+  <data name="UnreserveWarning" xml:space="preserve">
+    <value>Are you sure you want to return this toy? This will make the toy available for other students to borrow.</value>
+  </data>
+  
+  <!-- Toy Details -->
+  <data name="Location" xml:space="preserve">
+    <value>Location</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="Material" xml:space="preserve">
+    <value>Material</value>
+  </data>
+  <data name="NoImage" xml:space="preserve">
+    <value>No Image</value>
+  </data>
+  
+  <!-- Action Buttons -->
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ConfirmUnreserve" xml:space="preserve">
+    <value>Confirm Return</value>
+  </data>
+</root>

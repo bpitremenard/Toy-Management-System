@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="PageTitle" xml:space="preserve">
+    <value>Database Backup &amp; Restore</value>
+  </data>
+  <data name="CreateBackupTitle" xml:space="preserve">
+    <value>Create Backup</value>
+  </data>
+  <data name="CreateBackupDescription" xml:space="preserve">
+    <value>Save a snapshot of current database.</value>
+  </data>
+  <data name="CreateBackupButton" xml:space="preserve">
+    <value>Create Backup</value>
+  </data>
+  <data name="CreatingBackup" xml:space="preserve">
+    <value>Creating...</value>
+  </data>
+  <data name="RestoreBackupTitle" xml:space="preserve">
+    <value>Restore from Backup</value>
+  </data>
+  <data name="RestoreBackupDescription" xml:space="preserve">
+    <value>Select a backup file to restore database to a previous state.</value>
+  </data>
+  <data name="SelectBackupPlaceholder" xml:space="preserve">
+    <value>-- Select a backup --</value>
+  </data>
+  <data name="RestoreBackupButton" xml:space="preserve">
+    <value>Restore Selected Backup</value>
+  </data>
+  <data name="RestoringBackup" xml:space="preserve">
+    <value>Restoring...</value>
+  </data>
+  <data name="CreatingBackupWait" xml:space="preserve">
+    <value>Creating backup, please wait...</value>
+  </data>
+  <data name="RestoringDatabaseWait" xml:space="preserve">
+    <value>Restoring database, please wait...</value>
+  </data>
+  <data name="PleaseSelectBackup" xml:space="preserve">
+    <value>Please select a backup first.</value>
+  </data>
+  <data name="=" xml:space="preserve">
+    <value>This will OVERWRITE your current database. Are you sure?</value>
+  </data>
+</root>

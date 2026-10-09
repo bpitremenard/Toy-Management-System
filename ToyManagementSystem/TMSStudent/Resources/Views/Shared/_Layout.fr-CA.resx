@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Nav.SignOut" xml:space="preserve">
+    <value>Se déconnecter</value>
+  </data>
+  
+  <!-- Header and Footer -->
+  <data name="HeaderTitle" xml:space="preserve">
+    <value>Système de Gestion des Jouets - Portail Étudiant</value>
+  </data>
+  <data name="FooterDescription" xml:space="preserve">
+    <value>Le Système de Gestion des Jouets aide à organiser et suivre les jouets éducatifs utilisés dans le programme d'Éducation de la Petite Enfance.</value>
+  </data>
+  <data name="Copyright" xml:space="preserve">
+    <value>© 2026 Tous Droits Réservés</value>
+  </data>
+  <data name="ScrollToTop" xml:space="preserve">
+    <value>Faire défiler vers le haut</value>
+  </data>
+</root>

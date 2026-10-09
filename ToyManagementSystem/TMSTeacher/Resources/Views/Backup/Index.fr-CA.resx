@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="PageTitle" xml:space="preserve">
+    <value>Sauvegarde et Restauration de Base de Données</value>
+  </data>
+  <data name="CreateBackupTitle" xml:space="preserve">
+    <value>Créer une Sauvegarde</value>
+  </data>
+  <data name="CreateBackupDescription" xml:space="preserve">
+    <value>Enregistrer un instantané de la base de données actuelle.</value>
+  </data>
+  <data name="CreateBackupButton" xml:space="preserve">
+    <value>Créer une Sauvegarde</value>
+  </data>
+  <data name="CreatingBackup" xml:space="preserve">
+    <value>Création en cours...</value>
+  </data>
+  <data name="RestoreBackupTitle" xml:space="preserve">
+    <value>Restaurer à partir d'une Sauvegarde</value>
+  </data>
+  <data name="RestoreBackupDescription" xml:space="preserve">
+    <value>Sélectionner un fichier de sauvegarde pour restaurer la base de données à un état précédent.</value>
+  </data>
+  <data name="SelectBackupPlaceholder" xml:space="preserve">
+    <value>-- Sélectionner une sauvegarde --</value>
+  </data>
+  <data name="RestoreBackupButton" xml:space="preserve">
+    <value>Restaurer la Sauvegarde Sélectionnée</value>
+  </data>
+  <data name="RestoringBackup" xml:space="preserve">
+    <value>Restauration en cours...</value>
+  </data>
+  <data name="CreatingBackupWait" xml:space="preserve">
+    <value>Création de la sauvegarde, veuillez patienter...</value>
+  </data>
+  <data name="RestoringDatabaseWait" xml:space="preserve">
+    <value>Restauration de la base de données, veuillez patienter...</value>
+  </data>
+  <data name="PleaseSelectBackup" xml:space="preserve">
+    <value>Veuillez d'abord sélectionner une sauvegarde.</value>
+  </data>
+  <data name="=" xml:space="preserve">
+    <value>Ceci va ÉCRASER votre base de données actuelle. Êtes-vous sûr?</value>
+  </data>
+</root>

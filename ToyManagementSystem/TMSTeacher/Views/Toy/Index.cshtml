@@ -1,0 +1,165 @@
+@model IEnumerable<TMSTeacher.Models.ToyWithStudentViewModel>
+@using System.IO
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = Localizer["Title"];
+}
+
+<div class="container my-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="display-5">@Localizer["Header"]</h1>
+    </div>
+
+    @if (TempData["ErrorMessage"] != null) {
+        <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+    }
+
+    @if (TempData["SuccessMessage"] != null) {
+        <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+    }
+
+    @if (TempData["NoToysFoundMessage"] != null) {
+        <div class="alert alert-info">@TempData["NoToysFoundMessage"]</div>
+    }
+    <!-- Search Bar -->
+    <div class="search-container">
+        <form asp-action="Index" method="get" class="search-form">
+            <div class="search-input-group">
+                <i class="bi bi-search search-icon"></i>
+                <input type="text"
+                       name="searchQuery"
+                       class="search-input"
+                       placeholder="@Localizer["SearchPlaceholder"]"
+                       value="@(ViewBag.searchQuery ?? ViewBag.SearchQuery)"
+                       autocomplete="off">
+            </div>
+            <input type="hidden" name="categories" value="@ViewBag.SelectedCategory" />
+            <input type="hidden" name="materials" value="@ViewBag.SelectedMaterial" />
+            <button type="submit" class="search-btn" id="teacher-search-btn">
+                <i class="bi bi-search"></i> Search
+            </button>
+            @if (!string.IsNullOrEmpty(ViewBag.SearchQuery as string) ||
+                        !string.IsNullOrEmpty(ViewBag.searchQuery as string) ||
+                        !string.IsNullOrEmpty(ViewBag.SelectedCategory as string) ||
+                        !string.IsNullOrEmpty(ViewBag.SelectedMaterial as string)) {
+                <a asp-action="Index" class="clear-btn">
+                    <i class="bi bi-x-circle"></i> @Localizer["ClearButton"]
+                </a>
+            }
+        </form>
+    </div>
+
+    <div class="toy-actions mb-3">
+        <a asp-action="Create" class="btn btn-secondary me-2">@Localizer["AddToy"]</a>
+        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#filterModal">@Localizer["Filter"]</button>
+    </div>
+
+    <h3 class="h5 mb-3">@Localizer["Title"]</h3>
+
+    <div class="row g-4">
+        @if (Model != null && Model.Any()) {
+            @foreach (var viewModel in Model) {
+                    bool borrowed = !viewModel.Toy.IsAvailable;
+                    string cardClass = borrowed ? "toy-card h-100 reserved" : "toy-card h-100";
+
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="@cardClass" data-url="@Url.Action("Details", new { id = viewModel.Toy.ToyId })">
+
+                        <div class="toy-img-wrapper">
+                            @if (!string.IsNullOrEmpty(viewModel.Toy.ImagePath)) {
+                                var fileName = System.IO.Path.GetFileName(viewModel.Toy.ImagePath ?? "");
+                                var imgUrl = string.IsNullOrWhiteSpace(fileName) ? "" : Url.Content("~/toy-images/" + fileName);
+                                <img src="@Url.Content(imgUrl)" class="toy-img" alt="@viewModel.Toy.Name" />
+                            } else {
+                                <div class="toy-img no-img">@Localizer["NoImage"]</div>
+                            }
+                        </div>
+
+                        <div class="card-body">
+                            <h5 class="text-muted mb-2">@viewModel.Toy.Name</h5>
+                            <h6 class="fw-bold mb-1">@viewModel.Toy.LocationCode</h6>
+                            @if (borrowed && viewModel.ReservedByStudent != null) {
+                                <div class="reserved-info mt-2">
+                                    <small class="text-primary">
+                                        <i class="bi bi-person-fill"></i> Reserved by: @viewModel.StudentName
+                                    </small>
+                                </div>
+                            }
+                        </div>
+
+                        <div class="card-footer bg-white border-0 pb-3">
+                            <div class="toy-btn-row flex-wrap">
+                                <a asp-action="Edit" asp-route-id="@viewModel.Toy.ToyId" class="btn btn-sm btn-secondary">@Localizer["Update"]</a>
+                                @if (borrowed) {
+                                    <a asp-action="Return" asp-route-id="@viewModel.Toy.ToyId" class="btn btn-sm btn-warning">@Localizer["Return"]</a>
+                                }
+                                <a asp-action="Delete" asp-route-id="@viewModel.Toy.ToyId" class="btn btn-sm btn-danger">@Localizer["Delete"]</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        } else {
+            <div class="col-12">
+                <div class="alert alert-info">@Localizer["NoToysFound"]</div>
+            </div>
+        }
+    </div>
+</div>
+
+<!-- Filter Modal -->
+<div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="filterModalLabel">@Localizer["Filter"]</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form asp-action="Index" method="get">
+                <div class="modal-body">
+                    <input type="hidden" name="searchQuery" value="@(ViewBag.searchQuery ?? ViewBag.SearchQuery)" />
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">@Localizer["DevelopmentGoal"]</label>
+                        <select class="form-select" name="categories" id="developmentGoalFilter">
+                            <option value="">@Localizer["SelectOne"]</option>
+                            <option value="Cognitive" selected='@(ViewBag.SelectedCategory == "Cognitive")'>@Localizer["CategoryCognitive"]</option>
+                            <option value="Social and Emotional" selected='@(ViewBag.SelectedCategory == "Social and Emotional")'>@Localizer["CategorySocialEmotional"]</option>
+                            <option value="Sensory" selected='@(ViewBag.SelectedCategory == "Sensory")'>@Localizer["CategorySensory"]</option>
+                            <option value="Physical" selected='@(ViewBag.SelectedCategory == "Physical")'>@Localizer["CategoryPhysical"]</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">@Localizer["Material"]</label>
+                        <select class="form-select" name="materials" id="materialFilter">
+                            <option value="">@Localizer["SelectOne"]</option>
+                            <option value="Wood" selected='@(ViewBag.SelectedMaterial == "Wood")'>@Localizer["MaterialWood"]</option>
+                            <option value="Plastic" selected='@(ViewBag.SelectedMaterial == "Plastic")'>@Localizer["MaterialPlastic"]</option>
+                            <option value="Plush" selected='@(ViewBag.SelectedMaterial == "Plush")'>@Localizer["MaterialPlush"]</option>
+                            <option value="Metal" selected='@(ViewBag.SelectedMaterial == "Metal")'>@Localizer["MaterialMetal"]</option>
+                            <option value="Rubber" selected='@(ViewBag.SelectedMaterial == "Rubber")'>@Localizer["MaterialRubber"]</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">@Localizer["ApplyFilters"]</button>
+                    <a asp-action="Index" class="btn btn-outline-secondary me-2">@Localizer["ClearFilters"]</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".toy-card").forEach(card => {
+            card.addEventListener("click", (e) => {
+                if (e.target.closest(".btn")) return;
+                const url = card.dataset.url;
+                if (url) {
+                    window.location.href = url;
+                }
+            });
+        });
+    });
+</script>

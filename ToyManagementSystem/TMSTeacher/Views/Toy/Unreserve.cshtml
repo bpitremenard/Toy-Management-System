@@ -1,0 +1,150 @@
+@model TMS_SharedLibrary.Models.Toy
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = Localizer["UnreserveToy"];
+}
+
+<div class="container my-4">
+    <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-8">
+            <!-- Header Card -->
+            <div class="card border-0 shadow-lg mb-4" style="background: linear-gradient(135deg, #FFF9E6 0%, #FFF3D1 100%); border: 4px solid var(--wood-brown) !important;">
+                <div class="card-header bg-gradient-warning text-dark py-3" style="background: linear-gradient(135deg, #FFA500 0%, #FF8C00 100%); border-bottom: 4px solid var(--wood-brown) !important;">
+                    <div class="d-flex align-items-center">
+                        <i class="bi bi-exclamation-triangle-fill me-3" style="font-size: 1.5rem;"></i>
+                        <h3 class="mb-0" style="font-family: 'Carter One', cursive; font-weight: 700;">@Localizer["UnreserveConfirmation"]</h3>
+                    </div>
+                </div>
+                <div class="card-body p-4">
+                    <!-- Warning Alert -->
+                    <div class="alert alert-warning d-flex align-items-center border-3" role="alert" style="border: 3px solid #FFA500; background: linear-gradient(135deg, #FFF8DC 0%, #FFF3D1 100%); border-radius: 15px;">
+                        <i class="bi bi-exclamation-triangle-fill me-3" style="font-size: 1.25rem; color: #FF8C00;"></i>
+                        <div class="flex-grow-1">
+                            <strong>@Localizer["UnreserveWarning"]</strong>
+                        </div>
+                    </div>
+
+                    <!-- Toy Details Section -->
+                    <div class="row mt-4">
+                        <div class="col-md-4">
+                            <div class="toy-image-container">
+                                @if (!string.IsNullOrEmpty(Model.ImagePath)) {
+                                    var fileName = System.IO.Path.GetFileName(Model.ImagePath ?? "");
+                                    var imgUrl = string.IsNullOrWhiteSpace(fileName) ? "" : Url.Content("~/toy-images/" + fileName);
+                                    <img src="@Url.Content(imgUrl)" class="img-fluid rounded-3 shadow-sm" alt="@Model.Name" style="border: 3px solid var(--wood-brown);" />
+                                } else {
+                                    <div class="no-image-placeholder rounded-3 d-flex align-items-center justify-content-center" style="height: 200px; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border: 3px solid var(--wood-brown);">
+                                        <div class="text-center">
+                                            <i class="bi bi-image" style="font-size: 3rem; color: var(--wood-brown);"></i>
+                                            <div class="mt-2" style="color: var(--wood-brown); font-weight: 600; font-family: 'Carter One', cursive;">@Localizer["NoImage"]</div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="toy-details p-3 rounded-3" style="background: linear-gradient(135deg, #FFFFFF 0%, #F8F9FA 100%); border: 2px solid rgba(139, 111, 71, 0.2);">
+                                <h4 class="mb-3" style="color: var(--toy-blue); font-family: 'Carter One', cursive; font-weight: 700; text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1);">@Model.Name</h4>
+                                
+                                <div class="row g-3">
+                                    <div class="col-sm-6">
+                                        <div class="detail-item">
+                                            <label class="detail-label">@Localizer["Location"]:</label>
+                                            <span class="detail-value">@Model.LocationCode</span>
+                                        </div>
+                                    </div>
+                                    @if (!string.IsNullOrEmpty(Model.Category)) {
+                                        <div class="col-sm-6">
+                                            <div class="detail-item">
+                                                <label class="detail-label">@Localizer["Category"]:</label>
+                                                <span class="detail-value">@Model.Category</span>
+                                            </div>
+                                        </div>
+                                    }
+                                    @if (!string.IsNullOrEmpty(Model.Material)) {
+                                        <div class="col-sm-6">
+                                            <div class="detail-item">
+                                                <label class="detail-label">@Localizer["Material"]:</label>
+                                                <span class="detail-value">@Model.Material</span>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                                
+                                @if (!string.IsNullOrEmpty(Model.Description)) {
+                                    <div class="mt-3">
+                                        <label class="detail-label">@Localizer["Description"]:</label>
+                                        <p class="detail-value mb-0">@Model.Description</p>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <form asp-action="ReturnConfirmed" method="post" class="mt-4">
+                        <input type="hidden" name="id" value="@Model.ToyId" />
+                        <div class="d-flex justify-content-between align-items-center gap-3">
+                            <a asp-action="Index" class="btn btn-outline-secondary btn-lg px-4 py-2" style="border-radius: 25px; border-width: 3px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">
+                                <i class="bi bi-arrow-left me-2"></i>@Localizer["Cancel"]
+                            </a>
+                            <button type="submit" class="btn btn-warning btn-lg px-4 py-2" style="border-radius: 25px; border-width: 3px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; background: linear-gradient(135deg, #FFA500 0%, #FF8C00 100%); border-color: #FFFFFF; color: white; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); box-shadow: 0 6px 0 rgba(0, 0, 0, 0.2), 0 8px 15px rgba(0, 0, 0, 0.3);">
+                                <i class="bi bi-arrow-counterclockwise me-2"></i>@Localizer["ConfirmUnreserve"]
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.detail-label {
+    font-weight: 700;
+    color: var(--sheriff-brown);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+.detail-value {
+    color: var(--text-dark);
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.detail-item {
+    padding: 0.5rem 0;
+}
+
+.toy-image-container img {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.toy-image-container img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
+}
+
+.btn-outline-secondary:hover {
+    background: linear-gradient(135deg, var(--buzz-purple) 0%, #7C3AED 100%);
+    border-color: var(--buzz-purple);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 0 rgba(0, 0, 0, 0.25), 0 12px 20px rgba(0, 0, 0, 0.35);
+}
+
+.btn-warning:hover {
+    background: linear-gradient(135deg, #FF8C00 0%, #FFA500 100%) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 0 rgba(0, 0, 0, 0.25), 0 12px 20px rgba(0, 0, 0, 0.35) !important;
+}
+
+.btn:active {
+    transform: translateY(4px) !important;
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.2), 0 3px 8px rgba(0, 0, 0, 0.25) !important;
+}
+</style>

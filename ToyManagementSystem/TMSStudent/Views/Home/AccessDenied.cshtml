@@ -1,0 +1,8 @@
+﻿@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = Localizer["Title"];
+}
+
+<h1 class="text-danger">@Localizer["AccessDenied"]</h1>
+<p>@Localizer["NoPermission"]</p>

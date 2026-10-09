@@ -1,0 +1,250 @@
+﻿<div class="backup-container">
+    <h3 style="color: white; font-family: 'Carter One', cursive; margin-bottom: 1.5rem;">
+        🗄️ Database Backup & Restore
+    </h3>
+
+    <div class="backup-card">
+        <h4 class="backup-card-title">Create Backup</h4>
+        <p class="backup-card-desc">Save a snapshot of the current database.</p>
+        <button id="backupBtn" class="btn btn-primary">
+            <span id="backupBtnText">💾 Create Backup</span>
+            <span id="backupSpinner" style="display:none;">
+                <span class="tms-spinner"></span> Creating...
+            </span>
+        </button>
+    </div>
+
+    <div class="backup-card">
+        <h4 class="backup-card-title">Restore from Backup</h4>
+        <p class="backup-card-desc">Select a backup file to restore the database to a previous state.</p>
+        <select id="backupList" class="form-select" style="margin-bottom: 1rem;">
+            <option value="">-- Select a backup --</option>
+        </select>
+        <button id="restoreBtn" class="btn btn-danger">
+            <span id="restoreBtnText">⚠️ Restore Selected Backup</span>
+            <span id="restoreSpinner" style="display:none;">
+                <span class="tms-spinner"></span> Restoring...
+            </span>
+        </button>
+    </div>
+
+    <div id="statusMessage" class="status-message" style="display:none;"></div>
+</div>
+
+<style>
+    .backup-container {
+        max-width: 700px;
+        margin: 0 auto;
+    }
+
+    .backup-card {
+        background: linear-gradient(135deg, #FFF9E6 0%, #FFF3D1 100%);
+        border: 4px solid var(--wood-brown);
+        border-radius: 20px;
+        padding: 2rem;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    }
+
+    .backup-card-title {
+        color: var(--toy-blue) !important;
+        font-family: 'Carter One', cursive;
+        font-size: 1.4rem;
+        margin-bottom: 0.5rem;
+        text-shadow: 1px 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .backup-card-desc {
+        color: var(--text-dark);
+        font-weight: 600;
+        margin-bottom: 1.25rem;
+    }
+
+    .status-message {
+        padding: 1rem 1.5rem;
+        border-radius: 15px;
+        font-weight: 700;
+        font-size: 1rem;
+        border: 3px solid;
+        margin-top: 1rem;
+    }
+
+    .status-success {
+        background: linear-gradient(135deg, #D4EDDA 0%, #C3E6CB 100%);
+        border-color: var(--grass-green);
+        color: #155724;
+    }
+
+    .status-error {
+        background: linear-gradient(135deg, #F8D7DA 0%, #F5C6CB 100%);
+        border-color: var(--toy-red);
+        color: #721C24;
+    }
+
+    .status-loading {
+        background: linear-gradient(135deg, #D1ECF1 0%, #BEE5EB 100%);
+        border-color: var(--toy-blue);
+        color: #0C5460;
+    }
+
+    .tms-spinner {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        border: 3px solid rgba(255,255,255,0.4);
+        border-top-color: white;
+        border-radius: 50%;
+        animation: tms-spin 0.7s linear infinite;
+        vertical-align: middle;
+        margin-right: 4px;
+    }
+
+    @@keyframes tms-spin {
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    body.dark-mode .backup-card {
+        background: var(--dark-bg-elevated);
+        border-color: var(--dark-border);
+    }
+
+    body.dark-mode .backup-card-title {
+        color: #a78bfa !important;
+    }
+
+    body.dark-mode .backup-card-desc {
+        color: var(--dark-text-secondary);
+    }
+
+    body.dark-mode .status-success {
+        background: rgba(16, 185, 129, 0.15);
+        border-color: var(--dark-accent-green);
+        color: #6ee7b7;
+    }
+
+    body.dark-mode .status-error {
+        background: rgba(239, 68, 68, 0.15);
+        border-color: #ef4444;
+        color: #fca5a5;
+    }
+
+    body.dark-mode .status-loading {
+        background: rgba(59, 130, 246, 0.15);
+        border-color: var(--dark-accent-blue);
+        color: #93c5fd;
+    }
+</style>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+
+            $.ajaxSetup({
+                error: function (xhr) {
+                    if (xhr.status === 401 || (xhr.responseURL && xhr.responseURL.includes('login.microsoftonline.com'))) {
+                        window.location.href = '/Teacher/Home/Login';
+                    }
+                }
+            });
+
+            $.get('/Teacher/Backup/GetBackups', function (res) {
+                res.forEach(function (file) {
+                    $('#backupList').append('<option value="' + file + '">' + file + '</option>');
+                });
+            });
+
+            function setStatus(message, type) {
+                $('#statusMessage')
+                    .removeClass('status-success status-error status-loading')
+                    .addClass('status-' + type)
+                    .text(message)
+                    .show();
+            }
+
+            $('#backupBtn').click(function () {
+                $('#backupBtnText').hide();
+                $('#backupSpinner').show();
+                $(this).prop('disabled', true);
+                setStatus('Creating backup, please wait...', 'loading');
+
+                $.post('/Teacher/Backup/CreateBackup', function (res) {
+                    if (!res.success && !res.jobId) {
+                        setStatus(res.message, 'error');
+                        $('#backupBtnText').show();
+                        $('#backupSpinner').hide();
+                        $('#backupBtn').prop('disabled', false);
+                        return;
+                    }
+
+                    const interval = setInterval(function () {
+                        $.get('/Teacher/Backup/BackupStatus', { jobId: res.jobId }, function (poll) {
+                            if (poll.status === 'running') return;
+                            clearInterval(interval);
+                            setStatus(poll.message, poll.status === 'success' ? 'success' : 'error');
+                            if (poll.status === 'success' && poll.fileName) {
+                                $('#backupList').append('<option value="' + poll.fileName + '">' + poll.fileName + '</option>');
+                            }
+                            $('#backupBtnText').show();
+                            $('#backupSpinner').hide();
+                            $('#backupBtn').prop('disabled', false);
+                        }).fail(function (xhr) {
+                            clearInterval(interval);
+                            if (xhr.status === 401 || (xhr.responseURL && xhr.responseURL.includes('login.microsoftonline.com'))) {
+                                window.location.href = '/Teacher/Home/Login';
+                            } else {
+                                setStatus('An error occurred while checking backup status.', 'error');
+                            }
+                            $('#backupBtnText').show();
+                            $('#backupSpinner').hide();
+                            $('#backupBtn').prop('disabled', false);
+                        });
+                    }, 3000);
+                });
+            });
+
+            $('#restoreBtn').click(function () {
+                const selected = $('#backupList').val();
+                if (!selected) return alert('Please select a backup first.');
+                if (!confirm('This will OVERWRITE your current database. Are you sure?')) return;
+
+                $('#restoreBtnText').hide();
+                $('#restoreSpinner').show();
+                $(this).prop('disabled', true);
+                setStatus('Restoring database, please wait...', 'loading');
+
+                $.post('/Teacher/Backup/RestoreBackup', { fileName: selected }, function (res) {
+                    if (!res.success && !res.jobId) {
+                        setStatus(res.message, 'error');
+                        $('#restoreBtnText').show();
+                        $('#restoreSpinner').hide();
+                        $('#restoreBtn').prop('disabled', false);
+                        return;
+                    }
+
+                    const interval = setInterval(function () {
+                        $.get('/Teacher/Backup/RestoreStatus', { jobId: res.jobId }, function (poll) {
+                            if (poll.status === 'running') return;
+                            clearInterval(interval);
+                            setStatus(poll.message, poll.status === 'success' ? 'success' : 'error');
+                            $('#restoreBtnText').show();
+                            $('#restoreSpinner').hide();
+                            $('#restoreBtn').prop('disabled', false);
+                        }).fail(function (xhr) {
+                            clearInterval(interval);
+                            if (xhr.status === 401 || (xhr.responseURL && xhr.responseURL.includes('login.microsoftonline.com'))) {
+                                window.location.href = '/Teacher/Home/Login';
+                            } else {
+                                setStatus('An error occurred while checking restore status.', 'error');
+                            }
+                            $('#restoreBtnText').show();
+                            $('#restoreSpinner').hide();
+                            $('#restoreBtn').prop('disabled', false);
+                        });
+                    }, 3000);
+                });
+            });
+        });
+    </script>
+}

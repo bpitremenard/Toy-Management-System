@@ -1,0 +1,21 @@
+﻿@model TMS_SharedLibrary.Models.Toy
+
+@inject IViewLocalizer Localizer
+
+<div>
+    <h4>@Model.Name</h4>
+    <p><strong>@Localizer["Description"]</strong> @Model.Description</p>
+    <p><strong>Additional Information:</strong> @Model.AdditionalInformation</p>
+    <p><strong>@Localizer["Category"]</strong> @Model.Category</p>
+    <p><strong>@Localizer["Material"]</strong> @Model.Material</p>
+    <p><strong>@Localizer["Location"]</strong> @Model.LocationCode</p>
+
+    <p class="badge @(Model.IsAvailable ? "bg-success" : "bg-danger")"><strong>@Localizer["Available"]</strong> @(Model.IsAvailable ? Localizer["AvailableStatus"] : Localizer["Borrowed"])</p>
+
+    <p><strong>@Localizer["ManagedBy"]</strong> @Model.ManagedBy</p>
+
+    @if (!string.IsNullOrEmpty(Model.ImagePath))
+    {
+        <img src="@Model.ImagePath" class="img-fluid mt-2" />
+    }
+</div>
